@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xml-tag xmlns="http://www.gvsig.gva.es">
+    <property key="className" value="com.iver.cit.gvsig.fmap.rendering.VectorialUniqueValueLegend"/>
+    <property key="fieldNames" value="TIPO_AREA"/>
+    <property key="fieldTypes" value="12"/>
+    <property key="ownOrder" value="true"/>
+    <property key="orders" value="aree verdi ,fiumi ,edifici particolari ,isolati ,ponti"/>
+    <property key="colorScheme" value="0\,0\,0\,255 ,0\,84\,0\,255 ,0\,84\,0\,255 ,0\,168\,0\,255 ,0\,168\,0\,255 ,0\,255\,0\,255 ,0\,255\,0\,255 ,0\,255\,84\,255 ,0\,255\,84\,255 ,0\,255\,168\,255 ,0\,255\,168\,255 ,0\,255\,255\,255 ,0\,255\,255\,255 ,0\,0\,255\,255 ,0\,0\,255\,255 ,128\,0\,255\,255 ,128\,0\,255\,255 ,255\,0\,220\,255 ,255\,0\,220\,255 ,255\,0\,180\,255 ,255\,0\,180\,255 ,255\,0\,128\,255 ,255\,0\,128\,255 ,255\,0\,64\,255 ,255\,0\,64\,255 ,255\,0\,0\,255 ,255\,0\,0\,255 ,220\,190\,190\,255 ,223\,190\,190\,255 ,220\,220\,220\,255 ,220\,220\,220\,255 ,255\,255\,255\,255 ,255\,255\,255\,255"/>
+    <property key="labelfield"/>
+    <property key="labelFieldHeight"/>
+    <property key="labelFieldRotation"/>
+    <property key="useDefaultSymbol" value="false"/>
+    <property key="numKeys" value="5"/>
+    <property key="tipoValueKeys" value="com.hardcode.gdbms.engine.values.NullValue"/>
+    <property key="keys" value="aree verdi ,edifici particolari ,fiumi ,isolati ,ponti"/>
+    <property key="values" value="aree verdi ,fiumi ,edifici particolari ,isolati ,ponti"/>
+    <property key="typeKeys" value="-1 ,-1 ,-1 ,-1 ,-1"/>
+    <property key="typeValues" value="-1 ,-1 ,-1 ,-1 ,-1"/>
+    <xml-tag>
+        <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleFillSymbol"/>
+        <property key="color" value="60,235,235,255"/>
+        <property key="hasFill" value="true"/>
+        <property key="desc"/>
+        <property key="isShapeVisible" value="true"/>
+        <property key="referenceSystem" value="0"/>
+        <property key="unit" value="-1"/>
+        <property key="hasOutline" value="true"/>
+        <xml-tag>
+            <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
+            <property key="isShapeVisible" value="true"/>
+            <property key="desc"/>
+            <property key="unit" value="-1"/>
+            <property key="referenceSystem" value="0"/>
+            <property key="color" value="128,128,128,255"/>
+            <xml-tag>
+                <property key="className" value="com.iver.cit.gvsig.fmap.core.styles.SimpleLineStyle"/>
+                <property key="desc"/>
+                <property key="lineWidth" value="1.0"/>
+                <property key="dashPhase" value="0.0"/>
+                <property key="endCap" value="0"/>
+                <property key="lineJoin" value="2"/>
+                <property key="miterLimit" value="10.0"/>
+                <property key="offset" value="0.0"/>
+                <property key="unit" value="0"/>
+            </xml-tag>
+        </xml-tag>
+    </xml-tag>
+    <xml-tag>
+        <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleFillSymbol"/>
+        <property key="color" value="153,204,102,255"/>
+        <property key="hasFill" value="true"/>
+        <property key="desc" value="aree verdi"/>
+        <property key="isShapeVisible" value="true"/>
+        <property key="referenceSystem" value="0"/>
+        <property key="unit" value="-1"/>
+        <property key="hasOutline" value="false"/>
+        <xml-tag>
+            <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
+            <property key="isShapeVisible" value="true"/>
+            <property key="desc"/>
+            <property key="unit" value="-1"/>
+            <property key="referenceSystem" value="0"/>
+            <property key="color" value="128,128,128,255"/>
+            <xml-tag>
+                <property key="className" value="com.iver.cit.gvsig.fmap.core.styles.SimpleLineStyle"/>
+                <property key="desc"/>
+                <property key="lineWidth" value="0.0"/>
+                <property key="dashPhase" value="0.0"/>
+                <property key="endCap" value="0"/>
+                <property key="lineJoin" value="2"/>
+                <property key="miterLimit" value="10.0"/>
+                <property key="offset" value="0.0"/>
+                <property key="unit" value="0"/>
+            </xml-tag>
+        </xml-tag>
+    </xml-tag>
+    <xml-tag>
+        <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleFillSymbol"/>
+        <property key="color" value="204,255,255,255"/>
+        <property key="hasFill" value="true"/>
+        <property key="desc" value="fiumi"/>
+        <property key="isShapeVisible" value="true"/>
+        <property key="referenceSystem" value="0"/>
+        <property key="unit" value="-1"/>
+        <property key="hasOutline" value="true"/>
+        <xml-tag>
+            <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
+            <property key="isShapeVisible" value="true"/>
+            <property key="desc"/>
+            <property key="unit" value="-1"/>
+            <property key="referenceSystem" value="0"/>
+            <property key="color" value="204,255,255,255"/>
+            <xml-tag>
+                <property key="className" value="com.iver.cit.gvsig.fmap.core.styles.SimpleLineStyle"/>
+                <property key="desc"/>
+                <property key="lineWidth" value="1.0"/>
+                <property key="dashPhase" value="0.0"/>
+                <property key="endCap" value="0"/>
+                <property key="lineJoin" value="2"/>
+                <property key="miterLimit" value="10.0"/>
+                <property key="offset" value="0.0"/>
+                <property key="unit" value="0"/>
+            </xml-tag>
+        </xml-tag>
+    </xml-tag>
+    <xml-tag>
+        <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleFillSymbol"/>
+        <property key="color" value="240,240,240,255"/>
+        <property key="hasFill" value="true"/>
+        <property key="desc" value="edifici particolari"/>
+        <property key="isShapeVisible" value="true"/>
+        <property key="referenceSystem" value="0"/>
+        <property key="unit" value="-1"/>
+        <property key="hasOutline" value="true"/>
+        <xml-tag>
+            <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
+            <property key="isShapeVisible" value="true"/>
+            <property key="desc"/>
+            <property key="unit" value="-1"/>
+            <property key="referenceSystem" value="0"/>
+            <property key="color" value="130,130,130,255"/>
+            <xml-tag>
+                <property key="className" value="com.iver.cit.gvsig.fmap.core.styles.SimpleLineStyle"/>
+                <property key="desc"/>
+                <property key="lineWidth" value="1.0"/>
+                <property key="dashPhase" value="0.0"/>
+                <property key="endCap" value="0"/>
+                <property key="lineJoin" value="2"/>
+                <property key="miterLimit" value="10.0"/>
+                <property key="offset" value="0.0"/>
+                <property key="unit" value="0"/>
+            </xml-tag>
+        </xml-tag>
+    </xml-tag>
+    <xml-tag>
+        <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleFillSymbol"/>
+        <property key="color" value="240,240,240,255"/>
+        <property key="hasFill" value="true"/>
+        <property key="desc" value="isolati"/>
+        <property key="isShapeVisible" value="true"/>
+        <property key="referenceSystem" value="0"/>
+        <property key="unit" value="-1"/>
+        <property key="hasOutline" value="true"/>
+        <xml-tag>
+            <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
+            <property key="isShapeVisible" value="true"/>
+            <property key="desc"/>
+            <property key="unit" value="-1"/>
+            <property key="referenceSystem" value="0"/>
+            <property key="color" value="130,130,130,255"/>
+            <xml-tag>
+                <property key="className" value="com.iver.cit.gvsig.fmap.core.styles.SimpleLineStyle"/>
+                <property key="desc"/>
+                <property key="lineWidth" value="1.0"/>
+                <property key="dashPhase" value="0.0"/>
+                <property key="endCap" value="0"/>
+                <property key="lineJoin" value="2"/>
+                <property key="miterLimit" value="10.0"/>
+                <property key="offset" value="0.0"/>
+                <property key="unit" value="0"/>
+            </xml-tag>
+        </xml-tag>
+    </xml-tag>
+    <xml-tag>
+        <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleFillSymbol"/>
+        <property key="color" value="255,255,255,255"/>
+        <property key="hasFill" value="true"/>
+        <property key="desc" value="ponti"/>
+        <property key="isShapeVisible" value="true"/>
+        <property key="referenceSystem" value="0"/>
+        <property key="unit" value="-1"/>
+        <property key="hasOutline" value="true"/>
+        <xml-tag>
+            <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
+            <property key="isShapeVisible" value="true"/>
+            <property key="desc"/>
+            <property key="unit" value="-1"/>
+            <property key="referenceSystem" value="0"/>
+            <property key="color" value="153,153,153,255"/>
+            <xml-tag>
+                <property key="className" value="com.iver.cit.gvsig.fmap.core.styles.SimpleLineStyle"/>
+                <property key="desc"/>
+                <property key="lineWidth" value="1.0"/>
+                <property key="dashPhase" value="0.0"/>
+                <property key="endCap" value="0"/>
+                <property key="lineJoin" value="2"/>
+                <property key="miterLimit" value="10.0"/>
+                <property key="offset" value="0.0"/>
+                <property key="unit" value="0"/>
+            </xml-tag>
+        </xml-tag>
+    </xml-tag>
+</xml-tag>
