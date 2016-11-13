@@ -1,0 +1,5 @@
+,fare_id,origin_id,destination_id
+0,276,0,0
+1,293,2,2
+2,280,2,0
+3,280,0,2
