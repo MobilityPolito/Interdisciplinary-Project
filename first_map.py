@@ -6,9 +6,9 @@ from shapely.geometry import Polygon
 from geopandas.geoseries import GeoSeries
 import matplotlib.pyplot as plt
 
-cleandata_path = "./CleanData/"
+path = "./StaticData/Clean/torino_it/"
 
-shapes_df = pd.read_csv(cleandata_path + "torino_it/" + "shapes.txt", \
+shapes_df = pd.read_csv(path + "shapes.txt", \
                   index_col = 0)
 
 #pl = []
@@ -26,20 +26,9 @@ import gmplot
 gmap = gmplot.GoogleMapPlotter(45.116177, 7.742615, 16)
 
 gmap.scatter(shapes_df["shape_pt_lat"][shapes_df.shape_id == 1640],\
-             shapes_df["shape_pt_lon"][shapes_df.shape_id == 1640], '#3B0B39', marker=False)
+             shapes_df["shape_pt_lon"][shapes_df.shape_id == 1640],\
+             '#3B0B39', marker=False)
 #gmap.scatter(marker_lats, marker_lngs, 'k', marker=True)
 #gmap.heatmap(heat_lats, heat_lngs)
 
 gmap.draw("mymap.html")
-
-#shapes_df["geometry"] = \
-#    shapes_df.apply(lambda row: Point(row["shape_pt_lon"], row["shape_pt_lat"]), axis=1)
-#
-#    
-#shapes = geopandas.GeoDataFrame(shapes_df, geometry="geometry")
-#shapes.crs = {"init": "epsg:4326"}
-#
-#import matplotlib.pyplot as plt
-#fig, ax = plt.subplots(1)
-#shapes.plot(ax=ax, color="#cc0000")
-#plt.show()
