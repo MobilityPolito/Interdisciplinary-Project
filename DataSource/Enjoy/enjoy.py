@@ -6,26 +6,23 @@ from pymongo import MongoClient
 import json
 
 import datetime
-#import time
+import time
 
 MONGO_HOME = 'mongodb://localhost:27017/'
 DB_NAME = 'MobilityDataLake'
+
+URL_HOME = 'https://enjoy.eni.com'
+URL_AJAX = URL_HOME + '/ajax/'
+#URL_COOKIE = URL_AJAX + 'set_cookie_pref_city'
+URL_CARS =  URL_AJAX + 'retrieve_vehicles'
+
 client = MongoClient(MONGO_HOME)
 db = client[DB_NAME]
 
-API_KNOCK_URL_FORMAT = 'https://enjoy.eni.com/it/{city}/map/'
-URL_HOME = 'https://enjoy.eni.com'
-URL_COOKIE = 'https://enjoy.eni.com/ajax/set_cookie_pref_city'
-URL_CARS =  'https://enjoy.eni.com/ajax/retrieve_vehicles'
-
-cities = [{'city': 'torino'},\
-           {'city': 'milano'},\
-           {'city': 'catania'},\
-           {'city': 'roma'},\
-           {'city': 'firenze'}]
-
-sessions = {city['city']: None for city in cities}
-check_sessions = {city['city']: False for city in cities}         
+def write_log (message):
+    with open("enjoy.log", "a+") as f:
+        timestamp = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        f.write("[" + timestamp + "] -> " + message + "\n")
 
 def DBinsert (city, state):
 
@@ -48,35 +45,56 @@ class CityThread (threading.Thread):
         threading.Thread.__init__(self)
         self.stopped = False
         self.city = city
+        self.last_state = None
         
     def run(self):
         
         print threading.current_thread()
     
         try:
-            URL_HOME = 'https://enjoy.eni.com/it/' + self.city['city'] + '/map/'
+            URL_HOME = 'https://enjoy.eni.com/it/' + self.city + '/map/'
             session = requests.Session()
             session.get(URL_HOME)
-            session.post(URL_COOKIE, data=json.dumps(self.city))
+            #session.post(URL_COOKIE, data=json.dumps(self.city))
+            write_log(self.city + ": session successfully started")            
         except:
             print "Session error!"
             
-        for i in range (1):
-        		
+        while(True):
+        
             try:
                 request = session.get(URL_CARS)
+                state = json.loads(request.text)
+                self.last_state = state
+                write_log(self.city + ": state successfully loaded")
             except:
-                print "HTTP error!"
+                write_log(self.city + ": HTTP error!")
                 
-            state = json.loads(request.text)
-            
-            DBinsert(self.city['city'], state)
-            with open (self.city['city'] + ".json", "w+") as outfile:
-                outfile.write(json.dumps(state))
+            try:
+                DBinsert(self.city, state)
+                write_log(self.city + ": state successfully inserted")                
+            except:
+                write_log(self.city + ": Database error!")
+
+            try:
+                with open (self.city + "_last_state.json", "w+") as outfile:
+                    outfile.write(json.dumps(state))
+                write_log(self.city + ": state successfully written")                    
+            except:
+                write_log(self.city + ": File write error!")
+                
+            time.sleep(300)
                 
 if __name__ == "__main__":
+        
+    cities = ['torino',\
+               'milano',\
+               'catania',\
+               'roma',\
+               'firenze']
     
     for city in cities:
         print city
         thread = CityThread(city)
         thread.start()
+    thread.join()
