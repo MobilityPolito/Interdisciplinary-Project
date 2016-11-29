@@ -13,10 +13,6 @@ DB_NAME = 'MobilityDataLake'
 client = MongoClient(MONGO_HOME)
 db = client[DB_NAME]
 
-API_KNOCK_URL_FORMAT = 'https://enjoy.eni.com/it/{city}/map/'
-URL_HOME = 'https://www.car2go.com/api/v2.1/vehicles?oauth_consumer_key=car2gowebsite&format=json&loc='
-
-
 cities = [{'city': 'torino'},\
            {'city': 'milano'},\
            {'city': 'roma'},\

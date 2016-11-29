@@ -3488,3 +3488,84 @@
 [17/11/2016 18:35:32] -> catania: state successfully inserted
 [17/11/2016 18:35:32] -> milano: state successfully written
 [17/11/2016 18:35:32] -> catania: state successfully written
+[20/11/2016 11:16:36] -> car2go torino: HTTP error!
+[20/11/2016 11:16:36] -> car2go torino: Database error!
+[20/11/2016 11:16:36] -> car2go milano: HTTP error!
+[20/11/2016 11:16:36] -> car2go torino: state successfully written
+[20/11/2016 11:16:36] -> car2go newyorkcity: HTTP error!
+[20/11/2016 11:16:36] -> car2go milano: Database error!
+[20/11/2016 11:16:36] -> car2go newyorkcity: Database error!
+[20/11/2016 11:16:36] -> car2go newyorkcity: state successfully written
+[20/11/2016 11:16:36] -> car2go milano: state successfully written
+[20/11/2016 11:16:36] -> car2go roma: HTTP error!
+[20/11/2016 11:16:36] -> car2go roma: Database error!
+[20/11/2016 11:16:36] -> car2go firenze: HTTP error!
+[20/11/2016 11:16:36] -> car2go firenze: Database error!
+[20/11/2016 11:16:36] -> car2go roma: state successfully written
+[20/11/2016 11:16:36] -> car2go firenze: state successfully written
+[20/11/2016 11:16:37] -> enjoy firenze: session successfully started
+[20/11/2016 11:16:37] -> enjoy torino: session successfully started
+[20/11/2016 11:16:37] -> enjoy catania: session successfully started
+[20/11/2016 11:16:37] -> enjoy roma: session successfully started
+[20/11/2016 11:16:37] -> enjoy milano: session successfully started
+[20/11/2016 11:16:37] -> enjoy firenze: state successfully loaded
+[20/11/2016 11:16:37] -> enjoy firenze: Database error!
+[20/11/2016 11:16:37] -> enjoy firenze: state successfully written
+[20/11/2016 11:16:37] -> enjoy catania: state successfully loaded
+[20/11/2016 11:16:37] -> enjoy catania: Database error!
+[20/11/2016 11:16:37] -> enjoy catania: state successfully written
+[20/11/2016 11:16:37] -> enjoy milano: state successfully loaded
+[20/11/2016 11:16:37] -> enjoy milano: Database error!
+[20/11/2016 11:16:37] -> enjoy milano: state successfully written
+[20/11/2016 11:16:37] -> enjoy torino: state successfully loaded
+[20/11/2016 11:16:37] -> enjoy torino: Database error!
+[20/11/2016 11:16:37] -> enjoy torino: state successfully written
+[20/11/2016 11:16:37] -> enjoy roma: state successfully loaded
+[20/11/2016 11:16:37] -> enjoy roma: Database error!
+[20/11/2016 11:16:37] -> enjoy roma: state successfully written
+[20/11/2016 11:16:38] -> tobike torino: state successfully loaded
+[20/11/2016 11:16:38] -> tobike torino: Database error!
+[20/11/2016 11:16:38] -> tobike torino: state successfully written
+[20/11/2016 11:17:43] -> car2go torino: session successfully started
+[20/11/2016 11:17:43] -> car2go torino: HTTP error!
+[20/11/2016 11:17:43] -> car2go torino: Database error!
+[20/11/2016 11:17:43] -> car2go torino: state successfully written
+[20/11/2016 11:17:43] -> car2go firenze: session successfully started
+[20/11/2016 11:17:43] -> car2go firenze: HTTP error!
+[20/11/2016 11:17:43] -> car2go firenze: Database error!
+[20/11/2016 11:17:43] -> car2go firenze: state successfully written
+[20/11/2016 11:17:43] -> car2go roma: session successfully started
+[20/11/2016 11:17:43] -> car2go roma: HTTP error!
+[20/11/2016 11:17:43] -> car2go roma: Database error!
+[20/11/2016 11:17:43] -> car2go roma: state successfully written
+[20/11/2016 11:17:43] -> enjoy catania: session successfully started
+[20/11/2016 11:17:43] -> enjoy torino: session successfully started
+[20/11/2016 11:17:43] -> enjoy firenze: session successfully started
+[20/11/2016 11:17:43] -> enjoy milano: session successfully started
+[20/11/2016 11:17:43] -> enjoy roma: session successfully started
+[20/11/2016 11:17:43] -> car2go newyorkcity: session successfully started
+[20/11/2016 11:17:43] -> car2go newyorkcity: HTTP error!
+[20/11/2016 11:17:43] -> car2go newyorkcity: Database error!
+[20/11/2016 11:17:43] -> car2go newyorkcity: state successfully written
+[20/11/2016 11:17:44] -> enjoy catania: state successfully loaded
+[20/11/2016 11:17:44] -> enjoy catania: Database error!
+[20/11/2016 11:17:44] -> enjoy catania: state successfully written
+[20/11/2016 11:17:44] -> car2go milano: session successfully started
+[20/11/2016 11:17:44] -> enjoy firenze: state successfully loaded
+[20/11/2016 11:17:44] -> car2go milano: HTTP error!
+[20/11/2016 11:17:44] -> enjoy firenze: Database error!
+[20/11/2016 11:17:44] -> car2go milano: Database error!
+[20/11/2016 11:17:44] -> car2go milano: state successfully written
+[20/11/2016 11:17:44] -> enjoy firenze: state successfully written
+[20/11/2016 11:17:44] -> enjoy torino: state successfully loaded
+[20/11/2016 11:17:44] -> enjoy torino: Database error!
+[20/11/2016 11:17:44] -> enjoy torino: state successfully written
+[20/11/2016 11:17:44] -> enjoy milano: state successfully loaded
+[20/11/2016 11:17:44] -> enjoy milano: Database error!
+[20/11/2016 11:17:44] -> enjoy milano: state successfully written
+[20/11/2016 11:17:44] -> enjoy roma: state successfully loaded
+[20/11/2016 11:17:44] -> enjoy roma: Database error!
+[20/11/2016 11:17:44] -> enjoy roma: state successfully written
+[20/11/2016 11:17:44] -> tobike torino: state successfully loaded
+[20/11/2016 11:17:44] -> tobike torino: Database error!
+[20/11/2016 11:17:44] -> tobike torino: state successfully written

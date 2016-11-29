@@ -25,7 +25,6 @@ def DBinsert (city, state):
         print "Invalid data coding!"
 
 toBike = pybikes.get('to-bike')
-
 toBike.update()
 state = ""
 #for i in range(len(toBike.stations)):
@@ -35,7 +34,7 @@ stations_dict={}
 for j in range(1):
     print "ok"
     for i in range(len(toBike.stations)):
-        l["name"]=toBike.stations[i].name
+        l["name"] = toBike.stations[i].name
         l["extra"] = toBike.stations[i].extra
         l["timestamp"] = str(toBike.stations[i].timestamp)
         l["free"] = toBike.stations[i].free
@@ -44,8 +43,8 @@ for j in range(1):
         l["latitude"] = toBike.stations[i].latitude
         stations_dict[i] = l
         l={}
-        state = json.dumps(stations_dict)
-    DBinsert("Torino",state)
+    state = json.dumps(stations_dict)
+    DBinsert("torino", state)
     time.sleep(60)
 
 
