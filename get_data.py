@@ -87,7 +87,7 @@ class CityThread (threading.Thread):
                 self.start_session(self.url_home)
                 self.url_data = 'https://enjoy.eni.com/ajax/retrieve_vehicles'
             elif self.provider == "car2go":
-                self.url = 'https://www.car2go.com/api/v2.1/vehicles?oauth_consumer_key=car2gowebsite&format=json&loc=' + self.city
+                self.url = 'https://www.car2go.com/api/v2.1/vehicles?oauth_consumer_key=polito&format=json&loc=' + self.city
                 self.start_session(self.url)
             elif self.provider == "tobike":
                 self.toBike = pybikes.get('to-bike')
