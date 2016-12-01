@@ -12,7 +12,7 @@ import json
 import pybikes
 
 MONGO_HOME = 'mongodb://localhost:27017/'
-DB_NAME = 'MobilityDataLake'
+DB_NAME = 'MobilityDataLake_2'
 
 client = MongoClient(MONGO_HOME)
 db = client[DB_NAME]
@@ -27,7 +27,7 @@ def DBinsert (provider, city, current_state):
     collection = db[city]
     record = {\
          "timestamp": datetime.datetime.now(),\
-         "provider": "enjoy",\
+         "provider": provider,\
          "state": current_state\
          }
      
