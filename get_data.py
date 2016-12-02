@@ -12,7 +12,7 @@ import json
 import pybikes
 
 MONGO_HOME = 'mongodb://localhost:27017/'
-DB_NAME = 'MobilityDataLake_2'
+DB_NAME = 'prova'
 
 client = MongoClient(MONGO_HOME)
 db = client[DB_NAME]
@@ -22,7 +22,7 @@ def write_log (message):
         timestamp = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
         f.write("[" + timestamp + "] -> " + message + "\n")
 
-def DBinsert (provider, city, current_state):
+def DBinsert (session, provider, city, current_state):
 
     collection = db[city]
     record = {\
@@ -30,6 +30,8 @@ def DBinsert (provider, city, current_state):
          "provider": provider,\
          "state": current_state\
          }
+    if provider is "enjoy":
+        record["cookies"] = unicode(session.cookies)
      
     try:
         collection.insert_one(record)
@@ -44,22 +46,33 @@ class CityThread (threading.Thread):
         self.provider = provider
         self.city = city
         self.last_state = None
+        self.start_time = datetime.datetime.now()
         
     def start_session(self, url):
         self.session = requests.Session()
         self.session.get(url)
         #session.post(URL_COOKIE, data=json.dumps(self.city))
         write_log(self.provider + " " + self.city + ": session successfully started")        
-
+        
     def get_state (self):
+        
         if self.provider in ["enjoy"]:
+        
+            if (datetime.datetime.now() - self.start_time).total_seconds() > 30:
+                self.start_time = datetime.datetime.now()
+                self.session = self.session.close()
+                self.url_home = 'https://enjoy.eni.com/it/' + self.city + '/map/'
+                self.start_session(self.url_home)
+
             request = self.session.get(self.url_data)
             current_state = json.loads(request.text)
             self.last_state = current_state
+        
         if self.provider in ["car2go"]:
             request = self.session.get(self.url)
             current_state = json.loads(request.text)
             self.last_state = current_state
+            
         elif self.provider in ["tobike"]:
             self.toBike = pybikes.get('to-bike')
             self.toBike.update()            
@@ -104,7 +117,7 @@ class CityThread (threading.Thread):
                 write_log(self.provider + " " + self.city + ": HTTP error!")
                 
             try:
-                DBinsert(self.provider, self.city, self.last_state)
+                DBinsert(self.session, self.provider, self.city, self.last_state)
                 write_log(self.provider + " " + self.city + ": state successfully inserted")                
             except:
                 write_log(self.provider + " " + self.city + ": Database error!")
