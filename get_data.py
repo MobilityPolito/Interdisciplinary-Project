@@ -9,13 +9,13 @@ import requests
 from pymongo import MongoClient
 import json
 
-import pybikes
 
 MONGO_HOME = 'mongodb://localhost:27017/'
-DB_NAME = 'prova'
+DB_NAME = 'CSMS'
 
 client = MongoClient(MONGO_HOME)
-db = client[DB_NAME]
+db = client.CSMS
+db.authenticate('csms', '1234')
 
 def write_log (message):
     with open("log.log", "a+") as f:
@@ -30,8 +30,8 @@ def DBinsert (session, provider, city, current_state):
          "provider": provider,\
          "state": current_state\
          }
-    if provider is "enjoy":
-        record["cookies"] = unicode(session.cookies)
+    #if provider is "enjoy":
+    #    record["cookies"] = unicode(session.cookies)
      
     try:
         collection.insert_one(record)
@@ -140,18 +140,18 @@ if __name__ == "__main__":
     bike_cities = ['torino']
     
     for city in enjoy_cities:
-        print city
+        print "starting thread enjoy for:", city
         thread = CityThread("enjoy", city)
         thread.start()
         
     for city in car2go_cities:
-        print city
+        print "starting thread car2go for:", city
         thread = CityThread("car2go", city)
         thread.start()
 
-    for city in bike_cities:
-        print city
-        thread = CityThread("tobike", city)
-        thread.start()
+    #for city in bike_cities:
+    #    print city
+    #    thread = CityThread("tobike", city)
+    #    thread.start()
         
     thread.join()
