@@ -7,11 +7,11 @@ import logging
 LOG_FILENAME = 'consistency.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
 
-MONGO_HOME = 'mongodb://64.137.240.27:27017/'
+MONGO_HOME = 'mongodb://localhost:27017/'
 
 client = MongoClient(MONGO_HOME)
-input_db = client.CSMS
-input_db.authenticate('csms', '1234')
+input_db = client.test
+#input_db.authenticate('csms', '1234')
 collection = input_db['torino']
 
 #start = datetime.datetime(2016, 12, 1)
@@ -36,7 +36,7 @@ for doc in cursor:
 
 			for available_car in doc['state']:
 
-				#print ('{}<{}?').format(available_car['lon'], 8)
+				print ('{}<{}?').format(available_car['lon'], 8)
 
 				if available_car['lon'] < 8:
 					pass
