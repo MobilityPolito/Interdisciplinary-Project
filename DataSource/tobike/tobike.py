@@ -115,6 +115,7 @@ if __name__ == "__main__":
     TB = TObike("tobike","torino")
     while(True) :
         DBinsert(TB.city,TB.provider,TB.get_data())
+	time.sleep(60)
     
 
 
