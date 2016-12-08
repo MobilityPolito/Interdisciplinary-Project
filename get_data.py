@@ -30,8 +30,6 @@ def DBinsert (session, provider, city, current_state):
          "provider": provider,\
          "state": current_state\
          }
-    #if provider is "enjoy":
-    #    record["cookies"] = unicode(session.cookies)
      
     try:
         collection.insert_one(record)
@@ -51,7 +49,6 @@ class CityThread (threading.Thread):
     def start_session(self, url):
         self.session = requests.Session()
         self.session.get(url)
-        #session.post(URL_COOKIE, data=json.dumps(self.city))
         write_log(self.provider + " " + self.city + ": session successfully started")        
         
     def get_state (self):
@@ -133,16 +130,16 @@ class CityThread (threading.Thread):
                 
 if __name__ == "__main__":
         
-    enjoy_cities = ['torino']
+    # enjoy_cities = ['torino']
                
     car2go_cities = ['torino']
                    
-    bike_cities = ['torino']
+    # bike_cities = ['torino']
     
-    for city in enjoy_cities:
-        print "starting thread enjoy for:", city
-        thread = CityThread("enjoy", city)
-        thread.start()
+    # for city in enjoy_cities:
+    #     print "starting thread enjoy for:", city
+    #     thread = CityThread("enjoy", city)
+    #     thread.start()
         
     for city in car2go_cities:
         print "starting thread car2go for:", city

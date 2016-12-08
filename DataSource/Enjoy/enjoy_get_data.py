@@ -71,14 +71,33 @@ def main():
 
 		while(True):
 
-			if (datetime.datetime.now() - enjoy.start_time).total_seconds() < 3000:
-				enjoy.get_state()
-			else:
-				enjoy.stop_session()
-				enjoy.start_session()
-				enjoy.get_state()
+			try:
+				if (datetime.datetime.now() - enjoy.start_time).total_seconds() < 3000:
+					enjoy.get_state()
 
-			time.sleep(60 + random.randint(-30,30))
+				else:
+					try:
+						enjoy.stop_session()
+					except:
+						logging.debug('FAIL in stop_session(), time: {}').format(datetime.datetime.now())
+
+					try:
+						enjoy.start_session()
+					except:
+						logging.debug('FAIL in start_session() after stop, time: {}').format(datetime.datetime.now())
+
+					try:
+						enjoy.get_state()
+					except:
+						logging.debug('FAIL in get_state(), time: {}').format(datetime.datetime.now())
+			except:
+				logging.debug('FAIL in first control after IF STATEMENT, time: {}').format(datetime.datetime.now())
+
+			try:
+				time.sleep(60 + random.randint(-30,30))
+			except:
+				logging.debug('FAIL, error in time.sleep(), time: {}').format(datetime.datetime.now())
+
 	except:
 		print('Error in initializing enjoy class or session')
 
