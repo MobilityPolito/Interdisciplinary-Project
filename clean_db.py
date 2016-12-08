@@ -5,7 +5,7 @@ import json
 MONGO_HOME = 'mongodb://localhost:27017/'
 
 client = MongoClient(MONGO_HOME)
-input_db = client['MobilityDataLake']
+input_db = client['test']
 collection = input_db['torino']
 
 client = MongoClient(MONGO_HOME)
@@ -13,7 +13,7 @@ output_db = client['MobilityDataLakeTrial']
 output_db.torino.drop()
 output_collection = output_db['torino']
 
-start = datetime.datetime(2016, 12, 1)
+start = datetime.datetime(2016, 11, 10)
 end = datetime.datetime.now()
 
 cursor = collection.find({"timestamp":{'$gte': start, '$lt': end}})

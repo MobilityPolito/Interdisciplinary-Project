@@ -21,7 +21,7 @@ count_error = 0
 for document in cursor:
 
 	try:
-		if document['provider'] == 'enjoy':
+		if document['provider'] == 'car2go':
 			car = document['state'][0]
 			if car['lon'] < 8:
 				count += 1
