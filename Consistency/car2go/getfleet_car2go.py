@@ -45,7 +45,7 @@ for car_name in cars:
     record = {
                   'sequence_number': car_name.split('/')[0], 
                   'plate': car_name.split('/')[1],
-			  'rent_times': []
+			 'rent_times': []
 			 }
     try:
         fleet_car2go.insert_one(record)
