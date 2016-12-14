@@ -33,15 +33,14 @@ class DataBaseProxy (object):
         
         if by == "timestamp" and len(args) == 2:
             start, end = args
-            return self.db_compressed[city].find \
+            return self.db_fix_cities[city].find \
                     ({"timestamp":
                          {
                              '$gte': start,
                              '$lt': end
                          },
-                     "provider":"enjoy"
-                    }).sort([("timestamp", 1)])
-                
+                     "provider":provider
+                    }).sort([("_id", 1)])                
 
     def fix_providers(self):
         
@@ -134,4 +133,4 @@ class DataBaseProxy (object):
 dbp = DataBaseProxy()
 #dbp.fix_providers()
 #dbp.fix_cities()
-dbp.compress()
+#dbp.compress()
