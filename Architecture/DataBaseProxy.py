@@ -29,6 +29,22 @@ class DataBaseProxy (object):
         except:
             print "Invalid data coding!"
             
+    def insert_park (self, provider, city, car, lat, lon, start, end):
+
+        park = {
+                    "car": car, 
+                    "lat": lat,
+                    "lon": lon,
+                    "start": start,
+                    "end": end
+                }
+
+        collection = self.db_fix_cities[city + "_parks"]            
+        try:
+            collection.insert_one(park)
+        except:
+            print "Invalid data coding!"
+                
     def query (self, provider, city, by, *args):
         
         if by == "timestamp" and len(args) == 2:
@@ -40,7 +56,7 @@ class DataBaseProxy (object):
                              '$lt': end
                          },
                      "provider":provider
-                    }).sort([("_id", 1)])                
+                    }).sort([("_id", 1)])
 
     def fix_providers(self):
         
@@ -129,6 +145,8 @@ class DataBaseProxy (object):
                     except:
                         print type(current["state"])
                     last = document
+                    
+    
 
 dbp = DataBaseProxy()
 #dbp.fix_providers()

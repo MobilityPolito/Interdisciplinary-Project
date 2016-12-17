@@ -1,10 +1,9 @@
 """ 
 
 Provider:
-This metaclass represents a service provider.
-Besides some common utility method, the classes implementing this 
-interface should come with specific methods which exploit any 
-particular data/function supplied by providers.
+This metaclass represents a mobility service provider.
+The classes implementing this interface should select and analyze data coming from a 
+specific provider and having a specific format.
 
 """
 
