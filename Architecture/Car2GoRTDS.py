@@ -102,7 +102,7 @@ class Car2GoRTDS(RTDS):
         
         self.last_feed = self.get_feed()
         
-        while stop_enjoy is False:
+        while stop_car2go is False:
             self.current_feed = self.get_feed()
             self.check_feed()
             self.to_DB()
