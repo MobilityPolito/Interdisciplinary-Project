@@ -6,6 +6,10 @@ import pandas as pd
 
 client = MongoClient('mongodb://localhost:27017/')
 
+# db raw
+# db formatted
+# db compressed
+
 class DataBaseProxy (object):
     
     def __init__ (self):
@@ -14,6 +18,9 @@ class DataBaseProxy (object):
         self.db_fix_providers = client['CSMS_']
         self.db_fix_cities = client['CSMS__']
         self.db_compressed = client['CSMS___']
+        self.db_formatted = client['CSMS____']
+
+        self.db = self.db_compressed
 
     def insert (self, provider, city, state):
     
@@ -39,17 +46,15 @@ class DataBaseProxy (object):
                     "end": end
                 }
 
-        collection = self.db_fix_cities[city + "_parks"]            
+        collection = self.db[city + "_parks"]            
         try:
             collection.insert_one(park)
         except:
             print "Invalid data coding!"
                 
-    def query (self, provider, city, by, *args):
+    def query_time (self, provider, city, start, end):
         
-        if by == "timestamp" and len(args) == 2:
-            start, end = args
-            return self.db_fix_cities[city].find \
+        return self.db[city].find \
                     ({"timestamp":
                          {
                              '$gte': start,
@@ -124,31 +129,118 @@ class DataBaseProxy (object):
         input_db = self.db_fix_cities
         output_db = self.db_compressed
         
-        for city in ["milano","torino"]:
-            for provider in ["enjoy","car2go","tobike"]:
-        
-                input_collection = input_db[city]
-                output_collection = output_db[city]
-                
-                cursor = input_collection.find({"provider":provider})
-                
-                last = cursor.next()
-                output_collection.insert_one(last)
-                
-                for document in cursor:
-                    current = document
-                    try:
-                        last_df = pd.DataFrame(last["state"])
-                        current_df = pd.DataFrame(current["state"])
-                        if not last_df.equals(current_df):
-                            output_collection.insert_one(document)
-                    except:
-                        print type(current["state"])
-                    last = document
-                    
+        for provider in ["enjoy","car2go"]:
     
+            print provider
+                
+            if provider is "enjoy":
+                for city in ["torino", "milano"]:
+                    
+                    print city
 
-dbp = DataBaseProxy()
-#dbp.fix_providers()
-#dbp.fix_cities()
-#dbp.compress()
+                    input_collection = input_db[city]
+                    output_collection = output_db[city]
+
+                    cursor = input_collection.find({"provider": provider})
+
+                    last = cursor.next()
+                    output_collection.insert_one(last)                    
+                    
+                    for document in cursor: 
+                        
+                        current = document
+
+                        try:
+                            last_df = pd.DataFrame(last["state"])
+                            current_df = pd.DataFrame(current["state"])
+                            if not last_df.equals(current_df):
+                                output_collection.insert_one(document)
+                        except:
+                            print type(current["state"])
+
+                        last = document
+                                
+            elif provider is "car2go":
+                
+                for city in ["torino"]:
+                    
+                    print city
+                    
+                    input_collection = input_db[city]
+                    output_collection = output_db[city]
+
+                    cursor = input_collection.find({"provider": provider})
+
+                    last = cursor.next()
+                    output_collection.insert_one(last)                    
+                    
+                    for document in cursor: 
+                        
+                        current = document
+
+                        try:
+                            last_df = pd.DataFrame(last["state"]["placemarks"])
+                            current_df = pd.DataFrame(current["state"]["placemarks"])
+                            if not last_df.equals(current_df):
+                                output_collection.insert_one(document)
+                        except:
+                            print type(current["state"]["placemarks"])
+
+                        last = document
+                        
+    def format_providers (self):
+        
+        input_db = self.db_compressed
+        output_db = self.db_formatted
+        
+        for provider in ["enjoy", "car2go"]:
+            if provider == "car2go":
+                for city in ["torino"]:
+
+                    input_collection = input_db[city]
+                    output_collection = output_db[city]
+            
+                    cursor = input_collection.find({"provider": provider})
+                    
+                    lats = []
+                    lons = []
+                    for doc in cursor:
+                        new_state = doc["state"]["placemarks"]
+                        df = pd.DataFrame(new_state)
+                        coordinates = list(df["coordinates"].values)
+                        for car_coordinates in coordinates:
+                            if len(car_coordinates) is not 3:
+                                print len(car_coordinates)
+                            else:
+                                lats += [car_coordinates[1]]
+                                lons += [car_coordinates[0]]
+                        df["lat"] = pd.Series(lats)
+                        df["lon"] = pd.Series(lats)
+                        df = df.drop("coordinates", axis=1)
+            
+                        new_doc = doc
+                        new_doc["state"] = df.T.to_dict().values()
+                        output_collection.insert_one(new_doc)
+
+            elif provider == "enjoy":
+                for city in ["torino", "milano"]:
+                    
+                    input_collection = input_db[city]
+                    output_collection = output_db[city]
+            
+                    cursor = input_collection.find({"provider": provider})
+
+                    for doc in cursor:
+                        output_collection.insert_one(doc)
+                    
+def test():
+    
+    dbp = DataBaseProxy()
+    #dbp.fix_providers()
+    #dbp.fix_cities()
+    #dbp.compress()
+    dbp.format_providers()
+
+    return dbp
+    
+dbp = test()

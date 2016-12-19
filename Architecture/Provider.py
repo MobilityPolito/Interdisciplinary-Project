@@ -16,7 +16,7 @@ class Provider ():
     def __init__ ():
         pass
     
-    def get_data():
+    def select_data():
         """
         Query provider's data from db with some criterion
         """

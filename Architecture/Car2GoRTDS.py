@@ -20,7 +20,6 @@ from DataBaseProxy import dbp
 
 stop_car2go = False
 
-
 class Car2GoRTDS(RTDS):
         
     def __init__ (self,city):

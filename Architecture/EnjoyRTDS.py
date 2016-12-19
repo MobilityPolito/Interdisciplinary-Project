@@ -8,7 +8,6 @@ import json
 import pandas as pd
 
 from DataSource import RTDS
-from Provider import Provider
 from DataBaseProxy import dbp
 
 stop_enjoy = False
@@ -99,34 +98,4 @@ class EnjoyRTDS(RTDS):
             return
 
 #enjoy_rtds = EnjoyRTDS("torino")
-#enjoy_rtds.start()            
-            
-class Enjoy(Provider):
-    
-    def __init__ (self):
-        self.name = "enjoy"
-    
-    def get_data (self, city, by, *args):
-        
-        if by == "timestamp" and len(args) == 2:
-            self.cursor = dbp.query(self.name, city, by, args[0], args[1])
-
-    def get_fields(self):
-        
-        sample_columns = pd.DataFrame(self.cursor.next()["state"]).columns
-        for doc in self.cursor:
-            columns = pd.DataFrame(doc["state"]).columns
-            if len(columns.difference(sample_columns)):
-                print "Warning: different fields for the same provider"
-            
-        self.fields = columns
-        
-    def get_fleet(self):
-        
-        self.fleet = pd.Index()
-        
-enjoy = Enjoy()
-end = datetime.datetime(2016, 12, 1, 1, 0, 0)
-start = end - datetime.timedelta(hours = 1)
-enjoy.get_data("milano","timestamp", start, end)
-enjoy.get_fields()
+#enjoy_rtds.start()
