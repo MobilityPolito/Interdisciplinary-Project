@@ -39,19 +39,43 @@ class DataBaseProxy (object):
     def insert_park (self, provider, city, car, lat, lon, start, end):
 
         park = {
+                    "provider":provider,
                     "car": car, 
                     "lat": lat,
                     "lon": lon,
                     "start": start,
                     "end": end
                 }
-
+        
+#        print park
+        
         collection = self.db[city + "_parks"]            
         try:
             collection.insert_one(park)
         except:
             print "Invalid data coding!"
                 
+    def insert_book (self, provider, city, car, start_lat, start_lon, end_lat, end_lon, start, end):
+
+        park = {
+                    "provider": provider,
+                    "car": car, 
+                    "start_lat": start_lat,
+                    "start_lon": start_lon,
+                    "end_lat": end_lat,
+                    "end_lon": end_lon,
+                    "start": start,
+                    "end": end
+                }
+        
+#        print park
+        
+        collection = self.db[city + "_books"]            
+        try:
+            collection.insert_one(park)
+        except:
+            print "Invalid data coding!"
+
     def query_time (self, provider, city, start, end):
         
         return self.db[city].find \
@@ -234,13 +258,13 @@ class DataBaseProxy (object):
                         output_collection.insert_one(doc)
                     
 def test():
-    
+
     dbp = DataBaseProxy()
     #dbp.fix_providers()
     #dbp.fix_cities()
     #dbp.compress()
-    dbp.format_providers()
+    #dbp.format_providers()
 
     return dbp
     
-dbp = test()
+#dbp = test()

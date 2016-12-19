@@ -1,11 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 14 17:43:59 2016
-
-@author: Flavia
-"""
-
 import datetime
 import pandas as pd
 
@@ -61,7 +53,7 @@ class Car2Go(Provider):
         
         if last_car_status == "parked":
             try:
-                start = doc["timestamp"]
+                park_start = doc["timestamp"]
                 df = pd.DataFrame(doc["state"]["placemarks"])
                 car_state = df[df["name"] == car_plate]
                 lat = list(car_state["coordinates"].values)[0][1]
@@ -71,31 +63,69 @@ class Car2Go(Provider):
 
         for doc in self.cursor:
             try:
-                current_car_status = get_car_status(doc)
                 
-                if last_car_status == "parked":
-                    if last_car_status == current_car_status:
-                        pass
-                    else:
-                        end = doc["timestamp"]
-                        dbp.insert_park(self.name, self.city, car_plate, lat, lon, start, end)
+                try:
+                    current_car_status = get_car_status(doc)
+                except:
+                    print "1"
+                    
+                try:
+                    if last_car_status == "parked":
+                        if last_car_status == current_car_status:
+                            pass
+                        else:
+                            try:
+                                
+                                try:
+                                    park_end = doc["timestamp"]
+                                except:
+                                    print "4"
+                                    
+                                try:
+                                    car_plate
+                                    lat, lon
+                                    
+                                    try:
+                                        print str(park_start), print str(park_end)
+                                    except:
+                                        print doc["_id"], car_plate
+                                        print "7"
+                                        
+                                    dbp.insert_park(self.name, 
+                                                    self.city, 
+                                                    car_plate, 
+                                                    lat, lon, 
+                                                    park_start, park_end)
+                                except:
+                                    print "5"
+                                    
+                                try:
+                                    last_car_status = current_car_status
+                                except:
+                                    print "6"
+                                    
+                            except:
+                                print "3"
+
+                    elif current_car_status == last_car_status == "booked":
+                        park_start = doc["timestamp"]
+    
+                    elif current_car_status == "parked" and last_car_status == "booked":
                         last_car_status = current_car_status
-
-                elif current_car_status == last_car_status == "booked":
-                    start = doc["timestamp"]
-
-                elif current_car_status == "parked" and last_car_status == "booked":
-                    last_car_status = current_car_status
-                    df = pd.DataFrame(doc["state"]["placemarks"])
-                    lat = list(df[df["name"] == car_plate]["coordinates"].values)[0][1]
-                    lon = list(df[df["name"] == car_plate]["coordinates"].values)[0][0]
+                        df = pd.DataFrame(doc["state"]["placemarks"])
+                        car_state = df[df["name"] == car_plate]
+                        lat = list(df[df["name"] == car_plate]["coordinates"].values)[0][1]
+                        lon = list(df[df["name"] == car_plate]["coordinates"].values)[0][0]
+                except:
+                    print "2"
+                    
             except:
                 print doc["_id"]
 
 def test():
-    
+
     car2go = Car2Go()
-    
+
     end = datetime.datetime(2016, 11, 25, 0, 0, 0)
     start = end - datetime.timedelta(days = 1)
     
@@ -105,7 +135,7 @@ def test():
     
     for car in list(car2go.fleet):
         car2go.get_parks(car)
-        
+
     return car2go
-    
+
 car2go = test()
