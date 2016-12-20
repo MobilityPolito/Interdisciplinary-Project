@@ -76,7 +76,7 @@ class DataBaseProxy (object):
         except:
             print "Invalid data coding!"
 
-    def query_time (self, provider, city, start, end):
+    def query_raw_by_time (self, provider, city, start, end):
         
         return self.db[city].find \
                     ({"timestamp":
@@ -87,6 +87,28 @@ class DataBaseProxy (object):
                      "provider":provider
                     }).sort([("_id", 1)])
 
+    def query_park_by_time (self, provider, city, start, end):
+        
+        return self.db[city + "_parks"].find \
+                    ({"start":
+                         {
+                             '$gte': start,
+                             '$lt': end
+                         },
+                     "provider":provider
+                    }).sort([("_id", 1)])
+
+    def query_book_by_time (self, provider, city, start, end):
+        
+        return self.db[city + "_books"].find \
+                    ({"start":
+                         {
+                             '$gte': start,
+                             '$lt': end
+                         },
+                     "provider":provider
+                    }).sort([("_id", 1)])                        
+                        
     def fix_providers(self):
         
         input_db = self.db_raw
@@ -128,6 +150,7 @@ class DataBaseProxy (object):
                 milano_collection.insert_one(document)
             else:
                 print "Unknown CAP: " + cap
+                print document["address"]
         
         for city in ['torino','milano']:
     
@@ -135,16 +158,15 @@ class DataBaseProxy (object):
             cursor = input_collection.find()
             
             for document in cursor:
-                if document["provider"] == "enjoy":
-                    car = document["state"][0]
-                    
-                    if len(car["address"].split(',')) == 3:
-                        cap = car["address"].split(',')[2].split(' ')[1]
-                    elif len(car["address"].split(',')) == 2:
-                        cap = car["address"].split(',')[1].split(' ')[1]
-                    else:
-                        cap = ""
-                    check_cap(cap)
+                if document["provider"] == "enjoy":                    
+                    for car in document:
+                        if len(car["address"].split(',')) == 3:
+                            cap = car["address"].split(',')[2].split(' ')[1]
+                        elif len(car["address"].split(',')) == 2:
+                            cap = car["address"].split(',')[1].split(' ')[1]
+                        else:
+                            cap = ""
+                        check_cap(cap)
                 else:
                     torino_collection.insert_one(document)
                             

@@ -17,7 +17,7 @@ class Enjoy(Provider):
         
         if by == "timestamp" and len(args) == 2:
             start, end = args
-            self.cursor = dbp.query_time(self.name, city, start, end)
+            self.cursor = dbp.query_raw_by_time(self.name, city, start, end)
 
         return self.cursor
         
@@ -74,7 +74,6 @@ class Enjoy(Provider):
             try:
                 book_start = doc["timestamp"]
                 df = pd.DataFrame(doc["state"])
-                car_state = df[df["car_plate"] == car_plate]
                 book_lat_start = 45.116
                 book_lon_start = 7.742
             except:

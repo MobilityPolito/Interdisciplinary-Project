@@ -16,7 +16,7 @@ class Car2Go(Provider):
         
         if by == "timestamp" and len(args) == 2:
             start, end = args
-            self.cursor = dbp.query_time(self.name, city, start, end)
+            self.cursor = dbp.query_raw_by_time(self.name, city, start, end)
 
     def get_fields(self):
         
@@ -56,68 +56,68 @@ class Car2Go(Provider):
                 park_start = doc["timestamp"]
                 df = pd.DataFrame(doc["state"]["placemarks"])
                 car_state = df[df["name"] == car_plate]
-                lat = list(car_state["coordinates"].values)[0][1]
-                lon = list(car_state["coordinates"].values)[0][0]
+                park_lat = list(car_state["coordinates"].values)[0][1]
+                park_lon = list(car_state["coordinates"].values)[0][0]
+            except:
+                print df.describe()
+        elif last_car_status == "booked":
+            try:
+                book_start = doc["timestamp"]
+                df = pd.DataFrame(doc["state"]["placemarks"])
+                book_lat_start = 45.116
+                book_lon_start = 7.742
             except:
                 print df.describe()
 
         for doc in self.cursor:
+            
             try:
                 
-                try:
-                    current_car_status = get_car_status(doc)
-                except:
-                    print "1"
+                current_car_status = get_car_status(doc)
+                
+                if last_car_status == "parked":
                     
-                try:
-                    if last_car_status == "parked":
-                        if last_car_status == current_car_status:
-                            pass
-                        else:
-                            try:
-                                
-                                try:
-                                    park_end = doc["timestamp"]
-                                except:
-                                    print "4"
-                                    
-                                try:
-                                    car_plate
-                                    lat, lon
-                                    
-                                    try:
-                                        print str(park_start), print str(park_end)
-                                    except:
-                                        print doc["_id"], car_plate
-                                        print "7"
-                                        
-                                    dbp.insert_park(self.name, 
-                                                    self.city, 
-                                                    car_plate, 
-                                                    lat, lon, 
-                                                    park_start, park_end)
-                                except:
-                                    print "5"
-                                    
-                                try:
-                                    last_car_status = current_car_status
-                                except:
-                                    print "6"
-                                    
-                            except:
-                                print "3"
-
-                    elif current_car_status == last_car_status == "booked":
-                        park_start = doc["timestamp"]
-    
-                    elif current_car_status == "parked" and last_car_status == "booked":
+                    if current_car_status == "parked":
+                        pass
+                    
+                    elif current_car_status == "booked":
+                        
+                        park_end = doc["timestamp"]
+                        dbp.insert_park(self.name, 
+                                        self.city, 
+                                        car_plate, 
+                                        park_lat, park_lon, 
+                                        park_start, park_end)
+                        
+                        book_start = park_end
+                        book_lat_start = park_lat
+                        book_lon_start = park_lon                        
+                        
                         last_car_status = current_car_status
+                            
+                elif last_car_status == "booked":
+
+                    if current_car_status == "booked":
+                        pass
+                    
+                    elif current_car_status == "parked":
+
+                        last_car_status = current_car_status
+
                         df = pd.DataFrame(doc["state"]["placemarks"])
-                        car_state = df[df["name"] == car_plate]
-                        lat = list(df[df["name"] == car_plate]["coordinates"].values)[0][1]
-                        lon = list(df[df["name"] == car_plate]["coordinates"].values)[0][0]
-                except:
-                    print "2"
+                        park_lat = list(df[df["name"] == car_plate]["coordinates"].values)[0][1]
+                        park_lon = list(df[df["name"] == car_plate]["coordinates"].values)[0][0]
+                        park_start = doc["timestamp"]
+
+                        book_lat_end = park_lat
+                        book_lon_end = park_lon
+                        book_end = doc["timestamp"]
+                        dbp.insert_book(self.name, 
+                                        self.city, 
+                                        car_plate, 
+                                        book_lat_start, book_lon_start, 
+                                        book_lat_end, book_lon_end,
+                                        book_start, book_end)                                                
                     
             except:
                 print doc["_id"]
