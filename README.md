@@ -11,8 +11,8 @@ Here's a list of the main conceptual blocks:
   - Real Time Data Source metaclass
     - Enjoy RTDS
     - Car2Go RTDS
-    (- [TO]bike RTDS)
-    (- GTT RTDS)
+    - [TO]bike RTDS
+    - GTT RTDS
   
 - DataBase Management
   - DataBaseProxy class
@@ -21,8 +21,8 @@ Here's a list of the main conceptual blocks:
   - Provider metaclass
     - Enjoy
     - Car2Go
-    (- [TO]bike)
-    (- GTT)
+    - [TO]bike
+    - GTT
 
 - Data Analysis
 
