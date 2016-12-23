@@ -18,7 +18,8 @@ class DataBaseProxy (object):
         self.db_fix_providers = client['CSMS_']
         self.db_fix_cities = client['CSMS__']
         self.db_compressed = client['CSMS___']
-        self.db_formatted = client['CSMS____']
+        
+#        self.db_formatted = client['CSMS____']
 
         self.db = self.db_compressed
 
@@ -143,7 +144,7 @@ class DataBaseProxy (object):
         torino_collection = output_db['torino']        
         milano_collection = output_db['milano']
         
-        def check_cap (cap):
+        def check_cap (document, cap):
             if cap.startswith("10"):
                 torino_collection.insert_one(document)
             elif cap.startswith("20") or cap == "Milano" or cap == "Segrate":
@@ -159,14 +160,14 @@ class DataBaseProxy (object):
             
             for document in cursor:
                 if document["provider"] == "enjoy":                    
-                    for car in document:
-                        if len(car["address"].split(',')) == 3:
-                            cap = car["address"].split(',')[2].split(' ')[1]
-                        elif len(car["address"].split(',')) == 2:
-                            cap = car["address"].split(',')[1].split(' ')[1]
-                        else:
-                            cap = ""
-                        check_cap(cap)
+                    car = document["state"][0]
+                    if len(car["address"].split(',')) == 3:
+                        cap = car["address"].split(',')[2].split(' ')[1]
+                    elif len(car["address"].split(',')) == 2:
+                        cap = car["address"].split(',')[1].split(' ')[1]
+                    else:
+                        cap = ""
+                    check_cap(document, cap)
                 else:
                     torino_collection.insert_one(document)
                             
@@ -181,8 +182,6 @@ class DataBaseProxy (object):
                 
             if provider is "enjoy":
                 for city in ["torino", "milano"]:
-                    
-                    print city
 
                     input_collection = input_db[city]
                     output_collection = output_db[city]
@@ -282,11 +281,12 @@ class DataBaseProxy (object):
 def test():
 
     dbp = DataBaseProxy()
-    #dbp.fix_providers()
-    #dbp.fix_cities()
-    #dbp.compress()
+#    dbp.fix_providers()
+    dbp.fix_cities()
+    dbp.compress()
+    
     #dbp.format_providers()
 
     return dbp
     
-#dbp = test()
+dbp = test()
