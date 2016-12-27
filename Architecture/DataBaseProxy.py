@@ -282,11 +282,11 @@ def test():
 
     dbp = DataBaseProxy()
 #    dbp.fix_providers()
-    dbp.fix_cities()
-    dbp.compress()
+#    dbp.fix_cities()
+#    dbp.compress()
     
     #dbp.format_providers()
 
-    return dbp
+#    return dbp
     
-dbp = test()
+#dbp = test()
