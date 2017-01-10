@@ -10,7 +10,7 @@ client = MongoClient('mongodb://localhost:27017/')
 # db formatted
 # db compressed
 
-class DataBaseProxy (object):
+class DataBaseProxy(object):
     
     def __init__ (self):
         
