@@ -21,7 +21,7 @@ class DataBaseProxy(object):
         
 #        self.db_formatted = client['CSMS____']
 
-        self.db = self.db_compressed
+        self.db = self.db_raw
 
     def insert (self, provider, city, state):
     
@@ -56,7 +56,7 @@ class DataBaseProxy(object):
         except:
             print "Invalid data coding!"
                 
-    def insert_book (self, provider, city, car, start_lat, start_lon, end_lat, end_lon, start, end):
+    def insert_book (self, provider, city, car, start_lat, start_lon, end_lat, end_lon, start, end, bill):
 
         park = {
                     "provider": provider,
@@ -66,7 +66,8 @@ class DataBaseProxy(object):
                     "end_lat": end_lat,
                     "end_lon": end_lon,
                     "start": start,
-                    "end": end
+                    "end": end,
+                    "bill" : bill
                 }
         
 #        print park
@@ -77,6 +78,9 @@ class DataBaseProxy(object):
         except:
             print "Invalid data coding!"
 
+    def query_test (self, provider, city, start, end):
+        return self.db[city].find().count()
+    
     def query_raw_by_time (self, provider, city, start, end):
         
         return self.db[city].find \
@@ -279,7 +283,6 @@ class DataBaseProxy(object):
                         output_collection.insert_one(doc)
                     
 def test():
-
     dbp = DataBaseProxy()
 #    dbp.fix_providers()
 #    dbp.fix_cities()
